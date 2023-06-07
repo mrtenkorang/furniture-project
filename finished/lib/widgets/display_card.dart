@@ -14,7 +14,7 @@ class DisplayCard extends StatelessWidget {
     return Container(
       height: 320,
       width: 240,
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: 20, right: 20, bottom: 4, top: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -65,7 +65,7 @@ class DisplayCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.transparent,
                     ),
-                    child: Image.asset('asset/home/chair-blue.jpg',fit: BoxFit.cover,),
+                    child: Image.asset('asset/home/chair-blue.png',fit: BoxFit.cover,),
                   ),
                 ),
               ],

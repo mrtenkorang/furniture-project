@@ -10,6 +10,7 @@ class AppBigText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: textSize,
         fontFamily: 'Montserrat',
