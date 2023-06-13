@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:github/screens/home.dart';
-import 'package:github/utils/dimensions.dart';
+import 'package:github/navigations/app_router.dart';
 
 void main() {
   runApp(const FurnitureShop());
-  print(Dimensions.screenHeight);
-  print(Dimensions.screenWidth);
 }
 
 class FurnitureShop extends StatelessWidget {
@@ -14,10 +11,10 @@ class FurnitureShop extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      home: HomePage(),
+    return MaterialApp.router(
+      routeInformationProvider: AppRouter().router.routeInformationProvider,
+      routeInformationParser: AppRouter().router.routeInformationParser,
+      routerDelegate: AppRouter().router.routerDelegate,
     );
   }
 }
-

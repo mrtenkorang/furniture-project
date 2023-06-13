@@ -1,118 +1,149 @@
 import 'package:flutter/material.dart';
+import 'package:github/utils/dimensions.dart';
 import 'package:github/widgets/bigtext.dart';
 import 'package:github/widgets/smalltext.dart';
 
 class DisplayCard extends StatelessWidget {
-
   String furnitureName;
   String furnitureDescription;
   double furniturePrice;
-  DisplayCard({Key? key, required this.furnitureName, required this.furnitureDescription, required this.furniturePrice}) : super(key: key);
+  DisplayCard(
+      {Key? key,
+      required this.furnitureName,
+      required this.furnitureDescription,
+      required this.furniturePrice})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 320,
-      width: 240,
-      margin: EdgeInsets.only(left: 20, right: 20, bottom: 4, top: 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0,3),
-          )
-        ],
-      ),
-      child: Column(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(left: 5, top: 5, right: 5),
-            // Makes the container take the given height and width instead of adjusting itself
-            // to the size of its children
-            constraints: const BoxConstraints.expand(
-              height: 210,
-            ),
+    return Stack(
+      children: [
+        Positioned(
+          child: Container(
+            margin: EdgeInsets.only(left: Dimensions.widthMargin20),
+            height: Dimensions.height320,
+            width: Dimensions.width240,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color(0xFFF0F2F5),
-            ),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 5, left: 150),
-                  height: 20,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.white,
-                  ),
-                  child: Center(
-                    child: AppSmallText(
-                      text: '30% off',
-                      textColor: Colors.black,
-                      textSize: 10,
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    constraints: const BoxConstraints.expand(height: 150, width: 100),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.transparent,
-                    ),
-                    child: Image.asset('asset/home/chair-blue.png',fit: BoxFit.cover,),
-                  ),
-                ),
+              borderRadius: BorderRadius.circular(Dimensions.radius12),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.05),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                )
               ],
             ),
           ),
-          SizedBox(height: 10,),
-          Container(
-            margin: EdgeInsets.only(left: 5,right: 5),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        AppBigText(text: furnitureName,textSize: 14,textColor: Colors.black,),
-                        AppSmallText(text: furnitureDescription,textSize: 10,)
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.star, size: 15,color: Colors.yellow,),
-                        AppSmallText(text: '3.5', textSize: 11,)
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppBigText(text: '\$ ${furniturePrice}', textSize: 20,textColor: Colors.black,),
-                    Container(
-                      constraints: BoxConstraints.expand(height: 40, width: 38),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color(0xFF6A7A9F),
-                      ),
-                      child: Icon(Icons.add, color: Colors.white,),
-                    ),
-                  ],
-                ),
-              ],
+        ),
+        Positioned(
+          top: Dimensions.height5,
+          left: Dimensions.width25,
+          child: Container(
+            height: Dimensions.height210,
+            width: Dimensions.width230,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radius8),
+              color: const Color(0xFFF0F2F5),
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+        Positioned(
+          top: Dimensions.height10,
+          right: Dimensions.widthMargin20,
+          child: Container(
+            height: Dimensions.height15,
+            width: Dimensions.width25 * 2,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radius4),
+              color: Colors.white,
+            ),
+            child: Center(
+              child: AppSmallText(
+                text: '30% off',
+                textSize: Dimensions.height10,
+                textColor: Colors.black,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: Dimensions.height80,
+          top: Dimensions.widthMargin20,
+          child: Container(
+            height: Dimensions.height180,
+            width: Dimensions.width120,
+            //color: Colors.green,
+            child: Image(
+              image: AssetImage(
+                'asset/home/chair-blue.png',
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          top: Dimensions.height220,
+          left: Dimensions.width30,
+          child: AppBigText(
+            text: furnitureName,
+            textSize: Dimensions.height15,
+            textColor: Colors.black,
+          ),
+        ),
+        Positioned(
+          top: Dimensions.height220,
+          left: Dimensions.width210,
+          child: Icon(
+            Icons.star,
+            size: Dimensions.height16, // check this
+            color: Colors.yellow,
+          ),
+        ),
+        Positioned(
+          top: Dimensions.height220,
+          left: Dimensions.width230,
+          child: AppSmallText(
+            text: '3.5',
+            textSize: Dimensions.height15,
+          ),
+        ),
+        Positioned(
+          top: Dimensions.height240,
+          left: Dimensions.width30,
+          child: AppSmallText(
+            text: furnitureDescription,
+            textSize: Dimensions.height12,
+          ),
+        ),
+        Positioned(
+          top: Dimensions.height265,
+          left: Dimensions.width30,
+          child: AppBigText(
+            text: '\$ $furniturePrice',
+            textSize: Dimensions.heightMargin20,
+            textColor: Colors.black,
+          ),
+        ),
+        Positioned(
+          top: Dimensions.height265,
+          left: Dimensions.width220,
+          child: Container(
+            height: Dimensions.heightMargin30,
+            width: Dimensions.width30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radius4),
+              color: const Color(0xFF6A7A9F),
+            ),
+            child: Icon(
+              Icons.add,
+              size: Dimensions.heightMargin20,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

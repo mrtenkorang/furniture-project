@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.5
   get: ^4.6.5
+  go_router: ^8.0.1
 
 dev_dependencies:
   flutter_test:
@@ -80,9 +81,9 @@ flutter:
      - family: Montserrat
        fonts:
         - asset: asset/fonts/Montserrat-Regular.ttf
-          weight: 400
+          weight: 200
         - asset: asset/fonts/Montserrat-SemiBold.ttf
-          weight: 800
+          weight: 600
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

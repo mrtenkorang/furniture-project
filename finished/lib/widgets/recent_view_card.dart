@@ -59,6 +59,7 @@ class RecentViewCard extends StatelessWidget {
             left: 74,
             top: 10,
             child: AppBigText(
+              overflow: TextOverflow.ellipsis,
               text: furnitureName,
               textColor: Colors.black,
               textSize: 13,
@@ -102,3 +103,5 @@ class RecentViewCard extends StatelessWidget {
     );
   }
 }
+
+// code: 246B6AC2

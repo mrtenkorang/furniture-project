@@ -1,12 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:github/utils/app_constants.dart';
+import 'package:github/utils/dimensions.dart';
 import 'package:github/widgets/bigtext.dart';
 import 'package:github/widgets/display_card.dart';
+import 'package:go_router/go_router.dart';
 
 import '../data/data.dart';
 import '../widgets/recent_view_card.dart';
+import 'details.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,30 +34,42 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 20.0, top: 20.0),
+                    margin: EdgeInsets.only(
+                        left: Dimensions.widthMargin20,
+                        top: Dimensions.heightMargin20),
                     child: SvgPicture.asset('asset/home/icons8-menu.svg'),
                   ),
                   Container(
-                      margin: EdgeInsets.only(right: 20.0, top: 20.0),
-                      child: CircleAvatar()),
+                      margin: EdgeInsets.only(
+                          right: Dimensions.widthMargin20,
+                          top: Dimensions.heightMargin20),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: Dimensions.radius20,
+                        child: CircleAvatar(
+                          radius: Dimensions.radius18,
+                          backgroundImage:
+                              const AssetImage('asset/home/profile.jpeg'),
+                        ),
+                      )),
                 ],
               ),
 
-              const SizedBox(
-                height: 20.0,
+              SizedBox(
+                height: Dimensions.heightMargin20,
               ),
 
               // text display
               Container(
-                margin: EdgeInsets.only(left: 20.0),
+                margin: EdgeInsets.only(left: Dimensions.widthMargin20),
                 child: AppBigText(
                   text: "Choose Your Best Furniture",
                   textColor: Colors.black,
                 ),
               ),
 
-              const SizedBox(
-                height: 15.0,
+              SizedBox(
+                height: Dimensions.height15,
               ),
 
               // Search field and other container
@@ -64,24 +78,29 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: Container(
                       color: Color.fromRGBO(240, 242, 245, 0),
-                      height: 42.0,
-                      margin: EdgeInsets.only(left: 20.0, right: 30.0),
+                      height: Dimensions.height42,
+                      margin: EdgeInsets.only(
+                          left: Dimensions.widthMargin20,
+                          right: Dimensions.heightMargin30),
                       child: TextField(
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: Dimensions.font18),
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.grey[200],
                           hintText: 'search a furniture',
                           hintStyle: TextStyle(color: Colors.grey),
                           contentPadding: EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 16),
+                              vertical: Dimensions.height16,
+                              horizontal: Dimensions.width16),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius16),
                             borderSide:
                                 BorderSide(color: Colors.grey[300]!, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius10),
                             borderSide:
                                 BorderSide(color: Colors.grey[300]!, width: 1),
                           ),
@@ -98,15 +117,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(
-                    width: 10.0,
+                    width: Dimensions.width10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(right: 20.0),
-                    width: 50.0,
-                    height: 42.0,
+                    margin: EdgeInsets.only(right: Dimensions.widthMargin20),
+                    width: Dimensions.width50,
+                    height: Dimensions.height42,
                     decoration: BoxDecoration(
                         color: Color(0xFF6A7A9F),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius10),
                         border:
                             Border.all(color: Color(0xFF6A7A9F), width: 0.1)),
                     child: Icon(Icons.account_tree_outlined),
@@ -114,14 +134,14 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
 
-              const SizedBox(
-                height: 15.0,
+              SizedBox(
+                height: Dimensions.height15,
               ),
 
               // Listview for all the categories of furniture
               Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 20.0),
+                height: Dimensions.heightMargin30,
+                //margin: EdgeInsets.only(left: 20.0),
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, int index) {
@@ -133,50 +153,62 @@ class _HomePageState extends State<HomePage> {
                         print(height);
                       },
                       child: Container(
+                        margin: EdgeInsets.only(
+                            left: index == 0 ? Dimensions.widthMargin20 : 0),
                         decoration: BoxDecoration(
-                          color: selectedIndex == index
+                          color: index == 0
                               ? const Color(0xFF6A7A9F)
                               : Colors.transparent,
-                          borderRadius: BorderRadius.circular(9),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius8),
                         ),
-                        child: AppBigText(
-                          text: categories[index],
-                          textSize: 20,
-                          textColor: Colors.grey[600],
+                        //padding: EdgeInsets.only(top: 10),
+                        child: Center(
+                          child: AppBigText(
+                            text: categories[index],
+                            textSize: Dimensions.font20,
+                            textColor:
+                                index == 0 ? Colors.white : Colors.grey[600],
+                          ),
                         ),
                       ),
                     );
                   },
                   separatorBuilder: (context, int index) {
-                    return const SizedBox(
-                      width: 15,
+                    return SizedBox(
+                      width: Dimensions.width16,
                     );
                   },
                   itemCount: categories.length,
                 ),
               ),
 
-              const SizedBox(
-                height: 2,
+              SizedBox(
+                height: Dimensions.height10,
               ),
 
               Container(
                 constraints: BoxConstraints.expand(
-                  height: 320,
+                  height: Dimensions.height300,
                 ),
-
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, int index) {
-                    return DisplayCard(
-                      furnitureName: furnitureNames[index],
-                      furnitureDescription: furnitureDescriptions[index],
-                      furniturePrice: furniturePrices[index],
+                    return GestureDetector(
+                      onTap: () {
+                        context.pushNamed(AppConstants.details);
+                        print('you tapped on card with index $index');
+                      },
+                      child: DisplayCard(
+                        furnitureName: furnitureNames[index],
+                        furnitureDescription: furnitureDescriptions[index],
+                        furniturePrice: furniturePrices[index],
+                      ),
                     );
                   },
                   separatorBuilder: (context, int index) {
                     return SizedBox(
-                      width: 5,
+                      width: Dimensions.width5,
                     );
                   },
                   itemCount: furnitureNames.length,
@@ -186,38 +218,49 @@ class _HomePageState extends State<HomePage> {
                 height: 10,
               ),
               Container(
-                margin: EdgeInsets.only(right: 244),
+                margin: EdgeInsets.only(right: Dimensions.width244),
                 child: AppBigText(
                   text: 'Recent View',
                   textColor: Colors.black,
-                  textSize: 20,
+                  textSize: Dimensions.font20,
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: Dimensions.height10,
               ),
               Container(
                 //margin: EdgeInsets.only(left: 20, right: 20),
                 constraints: BoxConstraints.expand(
-                  height: 80,
+                  height: Dimensions.height80,
                 ),
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, int index){
-                      return RecentViewCard(
+                  itemBuilder: (context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return FurnitureDetailsPage();
+                        }));
+                        print('you tapped on card with index $index');
+                      },
+                      child: RecentViewCard(
                         furnitureName: furnitureNames[index],
                         furnitureDescription: furnitureDescriptions[index],
                         furniturePrice: furniturePrices[index],
-                      );
-                    },
-                    separatorBuilder: (context, int index){
-                      return SizedBox(width: 5.0,);
-                    },
-                    itemCount: furnitureNames.length,
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, int index) {
+                    return SizedBox(
+                      width: Dimensions.width5,
+                    );
+                  },
+                  itemCount: furnitureNames.length,
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: Dimensions.height10,
               )
             ],
           ),
